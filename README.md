@@ -1,6 +1,20 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+For starting the game, please load index.html in your favourite browser that supports Javascript.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+The player starts from the middle bottom part of the screen.
+
+An initial score of 0 is displayed in the upper corner of the screen.
+
+Use the keyboard arrows (up, left, down, right) to move your player.
+
+Please beware of the bugs, when you collide with them , your score will be decreased by 1, and you will be taken back at the beginning of the game.
+
+When you cross the street and you are not hit by any bug, your score will increase by 1 and you will be taken back at the beginning of the game, but with an udpated score.
+
+You can collect Green, Blue or Orange gems , and your score will increase by 10.
+
+Just close the browser tab when you have relaxed from crossing the streets and avoiding bugs !!!
+
+Plase enjoy the game :) !
