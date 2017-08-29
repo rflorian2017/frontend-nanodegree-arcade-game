@@ -94,8 +94,14 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+		
+		//update also the collectibles
+		collectibleItems.forEach(function(collectible) {
+            collectible.update(dt);
+        });
         player.update();
 		
+		//clear and update the score on the upper corner of the canvas
 		ctx.clearRect(0,0,canvas.width,43);
 		ctx.font = '30pt Impact';
 		ctx.textAlign = 'center';
@@ -109,9 +115,20 @@ var Engine = (function(global) {
 	
 	/* This function checks for collisions */
 	function checkCollisions() {
-	        allEnemies.forEach(function(enemy) {
+	    allEnemies.forEach(function(enemy) {
+				//for checking the collisions, I use an absolute value of the difference between the player coordinates and the enemy coordinate, let's say 50
 				if( Math.abs(enemy.x - player.x) < 50 && Math.abs(enemy.y - player.y) < 50 ) {
-					player = new Player(2,5,player.score-1);
+					player.reset();
+				} 
+        });
+		
+		//for checking the collisions, I use an absolute value of the difference between the player coordinates and the collectible coordinate, let's say 50
+		collectibleItems.forEach(function(collectible) {
+				if( Math.abs(collectible.x - player.x) < 50 && Math.abs(collectible.y - player.y) < 50 ) {
+					//update the score of the player
+					player.updateScore();
+					//make the collectible go out of the screen
+					collectible.updateCollectible();
 				} 
         });
 	}
@@ -169,6 +186,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
+		collectibleItems.forEach(function(collectible) {
+            collectible.render();
+        });
 
         player.render();
     }
@@ -179,6 +199,7 @@ var Engine = (function(global) {
      */
     function reset() {
 	  // Text attributes
+	  //create the score text and initialize it on zero
       ctx.font = '30pt Impact';
       ctx.textAlign = 'center';
       ctx.strokeStyle = 'black';
@@ -199,7 +220,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+		'images/Gem Blue.png', 
+		'images/Gem Green.png', 
+		'images/Gem Orange.png', 
+		'images/Heart.png', 	
     ]);
     Resources.onReady(init);
 
