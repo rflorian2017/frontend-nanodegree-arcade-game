@@ -9,8 +9,9 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
- * writing app.js a little simpler to work with.
+ * This engine is available globally via the Engine variable and it also makes
+ * the canvas' context (ctx) object globally available to make writing app.js
+ * a little simpler to work with.
  */
 
 var Engine = (function(global) {
@@ -79,7 +80,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,7 +95,26 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+		
+		ctx.clearRect(0,0,canvas.width,43);
+		ctx.font = '30pt Impact';
+		ctx.textAlign = 'center';
+		ctx.strokeStyle = 'black';
+		ctx.lineWidth = 2;
+		ctx.fillStyle = 'white';
+      
+		ctx.fillText("Score: " + player.score, canvas.width / 2, 40);
+		ctx.strokeText("Score: " + player.score, canvas.width / 2, 40);
     }
+	
+	/* This function checks for collisions */
+	function checkCollisions() {
+	        allEnemies.forEach(function(enemy) {
+				if( Math.abs(enemy.x - player.x) < 50 && Math.abs(enemy.y - player.y) < 50 ) {
+					player = new Player(2,5,player.score-1);
+				} 
+        });
+	}
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -158,8 +178,17 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+	  // Text attributes
+      ctx.font = '30pt Impact';
+      ctx.textAlign = 'center';
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 2;
+      ctx.fillStyle = 'white';
+      
+      ctx.fillText("Score: " + player.score, canvas.width / 2, 40);
+	  ctx.strokeText("Score: " + player.score, canvas.width / 2, 40);
     }
+	
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
