@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x,y) {
+var Enemy = function(x,y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -8,6 +8,7 @@ var Enemy = function(x,y) {
     this.sprite = 'images/enemy-bug.png';
 	this.x = x * 100;
 	this.y = y * 73;
+	this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -18,12 +19,13 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 	
 	//use the Math.random to generate a number between 1 and 3 to reset the position, and use floor to have an integer value
-	this.x += this.y * Math.floor((Math.random() * 3) + 1) * dt;
+	this.x += this.speed * dt;
 	
 	//if enemy is outside the screen, reset its position
 	if(this.x > 505) {
 		this.x = 0;
 		this.y = Math.floor((Math.random() * 3) + 1) * 70;
+		this.speed = Math.floor((Math.random() * 300) + 40);
 	}
 };
 
@@ -40,7 +42,7 @@ var Player = function(x,y,score) {
 	Enemy.call(this,x,y);
 	this.sprite = 'images/char-boy.png';
 	this.score = score;
-}
+};
 
 //inherit the render function	
 Player.prototype = Object.create(Enemy.prototype);
@@ -99,10 +101,10 @@ Player.prototype.handleInput = function(key) {
 };
 
 //create a collectible object, subclass of Enemy, which has the same parameters as the Enemy and has a different sprite
-var Collectible = function(x,y,sprite) {
-	Enemy.call(this,x,y);
+var Collectible = function(x,y,sprite,speed) {
+	Enemy.call(this,x,y,speed);
 	this.sprite = sprite;
-}
+};
 
 //inherit the render method
 Collectible.prototype = Object.create(Enemy.prototype);
@@ -116,7 +118,7 @@ Collectible.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-	this.y += (this.x + 20) * Math.floor((Math.random() * 3) + 1) * dt;
+	this.y += this.speed * dt;
 	
 	//if outside the screen, then set the x to outside the canvas
 	if(this.y > 400) {
@@ -127,6 +129,7 @@ Collectible.prototype.update = function(dt) {
 	if(this.y > 30000) {
 		this.y = 0;
 		this.x = Math.floor((Math.random() * 5) + 1) * 70;
+		this.speed = Math.floor((Math.random() * 300) + 40);
 	}
 };
 
@@ -140,15 +143,15 @@ Collectible.prototype.updateCollectible = function(dt) {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var enemy_1 = new Enemy(0,1);
-var enemy_2 = new Enemy(0,2);
-var enemy_3 = new Enemy(0,3);
+var enemy_1 = new Enemy(0,1, Math.floor(Math.random() * 120));
+var enemy_2 = new Enemy(0,2, Math.floor(Math.random() * 280));
+var enemy_3 = new Enemy(0,3, Math.floor(Math.random() * 380));
 var allEnemies = [enemy_1, enemy_2, enemy_3];
 
 //instantiate the collectible items
-var collectible1 = new Collectible(0,0,'images/Gem Blue.png');
-var collectible2 = new Collectible(1,0,'images/Gem Green.png');
-var collectible3 = new Collectible(2,0,'images/Gem Orange.png');
+var collectible1 = new Collectible(0,0,'images/Gem Blue.png', Math.floor(Math.random() * 200));
+var collectible2 = new Collectible(1,0,'images/Gem Green.png', Math.floor(Math.random() * 400));
+var collectible3 = new Collectible(2,0,'images/Gem Orange.png', Math.floor(Math.random() * 600));
 var collectibleItems = [collectible1, collectible2, collectible3];
 
 // Place the player object in a variable called player

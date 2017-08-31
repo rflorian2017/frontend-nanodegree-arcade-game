@@ -64,7 +64,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        initializeScore();
         lastTime = Date.now();
         main();
     }
@@ -100,17 +100,6 @@ var Engine = (function(global) {
             collectible.update(dt);
         });
         player.update();
-		
-		//clear and update the score on the upper corner of the canvas
-		ctx.clearRect(0,0,canvas.width,43);
-		ctx.font = '30pt Impact';
-		ctx.textAlign = 'center';
-		ctx.strokeStyle = 'black';
-		ctx.lineWidth = 2;
-		ctx.fillStyle = 'white';
-      
-		ctx.fillText("Score: " + player.score, canvas.width / 2, 40);
-		ctx.strokeText("Score: " + player.score, canvas.width / 2, 40);
     }
 	
 	/* This function checks for collisions */
@@ -173,6 +162,17 @@ var Engine = (function(global) {
         }
 
         renderEntities();
+		
+		//clear and update the score on the upper corner of the canvas
+		ctx.clearRect(0,0,canvas.width,43);
+		ctx.font = '30pt Impact';
+		ctx.textAlign = 'center';
+		ctx.strokeStyle = 'black';
+		ctx.lineWidth = 2;
+		ctx.fillStyle = 'white';
+      
+		ctx.fillText("Score: " + player.score, canvas.width / 2, 40);
+		ctx.strokeText("Score: " + player.score, canvas.width / 2, 40);
     }
 
     /* This function is called by the render function and is called on each game
@@ -197,7 +197,7 @@ var Engine = (function(global) {
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
-    function reset() {
+    function initializeScore() {
 	  // Text attributes
 	  //create the score text and initialize it on zero
       ctx.font = '30pt Impact';
