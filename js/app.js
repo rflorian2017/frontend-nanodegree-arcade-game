@@ -45,17 +45,23 @@ var Player = function(x,y,score) {
 //inherit the render function	
 Player.prototype = Object.create(Enemy.prototype);
 
+//constructor for player
+Player.prototype.constructor = Player;
+
 //update is required to have no parameters, because it is not moving randomly, but using the keyboard
 Player.prototype.update = function() {
 	if(this.y < 10) {
-		this.score ++;
-		player = new Player(2,5,this.score);
+		this.score += 1;
+		this.x = 2 * 100;
+		this.y = 5 * 73;
 	}
 };
 
 //reset the player in case of the collision with an enemy
 Player.prototype.reset = function() {
-	player = new Player(2,5,player.score-1);
+	this.x = 2 * 100;
+	this.y = 5 * 73;
+	this.score -= 1;
 };
 
 //update the score when collecting an item
@@ -100,6 +106,9 @@ var Collectible = function(x,y,sprite) {
 
 //inherit the render method
 Collectible.prototype = Object.create(Enemy.prototype);
+
+//constructor for collectible
+Collectible.prototype.constructor = Collectible;
 
 // Update the collectible's position, required method for game, the difference is the collectible is moving vertically
 // Parameter: dt, a time delta between ticks
