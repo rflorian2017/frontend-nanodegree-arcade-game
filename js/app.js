@@ -51,7 +51,7 @@ Player.prototype.constructor = Player;
 //update is required to have no parameters, because it is not moving randomly, but using the keyboard
 Player.prototype.update = function() {
 	if(this.y < 10) {
-		this.score += 1;
+		this.score++;
 		this.x = 2 * 100;
 		this.y = 5 * 73;
 	}
@@ -61,7 +61,7 @@ Player.prototype.update = function() {
 Player.prototype.reset = function() {
 	this.x = 2 * 100;
 	this.y = 5 * 73;
-	this.score -= 1;
+	this.score--;
 };
 
 //update the score when collecting an item
